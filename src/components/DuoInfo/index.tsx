@@ -3,7 +3,6 @@ import { THEME } from '../../theme';
 
 import { styles } from './styles';
 
-
 interface Props {
   label: string;
   value: string;
