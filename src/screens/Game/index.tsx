@@ -17,8 +17,11 @@ import { useEffect, useState } from 'react';
 
 
 export function Game() {
+
   const [duos, setDuos] = useState<DuoCardProps[]>([])
   const [discordDuoSelected, setDiscordDuoSelected] =useState <string>('')
+
+
   const route = useRoute();
   const game = route.params as GameParams;
   const navigation = useNavigation();
@@ -27,6 +30,13 @@ export function Game() {
     navigation.goBack();
   }
 
+  async function getDiscordUser(adsId: string){
+    fetch(`http://192.168.1.2:3333/games/${adsId}/discord`)
+      .then(response => response.json())
+      .then(data => setDiscordDuoSelected(data))
+
+
+  }
 
   useEffect(() => {
     fetch(`http://192.168.1.2:3333/games/${game.id}/ads`)
@@ -82,7 +92,7 @@ export function Game() {
         />
         <DuoMatch 
         onClose={()=> setDiscordDuoSelected('')}
-        discord='luis'
+        discord={discordDuoSelected}
         visible={discordDuoSelected.length > 0}/>
 
       </SafeAreaView>
