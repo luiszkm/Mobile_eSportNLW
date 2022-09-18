@@ -5,6 +5,7 @@ import { Entypo } from '@expo/vector-icons'
 import { Background } from '../../components/Background';
 import { Heading } from '../../components/Heading';
 import { DuoCard, DuoCardProps } from '../../components/DuoCard';
+import { DuoMatch } from '../../components/DuoMatch';
 
 import logoImg from '../../assets/logo-nlw-esports.png'
 import { THEME } from '../../theme';
@@ -17,7 +18,7 @@ import { useEffect, useState } from 'react';
 
 export function Game() {
   const [duos, setDuos] = useState<DuoCardProps[]>([])
-
+  const [discordDuoSelected, setDiscordDuoSelected] =useState <string>('')
   const route = useRoute();
   const game = route.params as GameParams;
   const navigation = useNavigation();
@@ -71,7 +72,7 @@ export function Game() {
           )}
           horizontal
           style={styles.containerList}
-          contentContainerStyle={[ duos.length > 0 ? styles.contentList : styles.emptyListContent ]}
+          contentContainerStyle={[duos.length > 0 ? styles.contentList : styles.emptyListContent]}
           showsHorizontalScrollIndicator={false}
           ListEmptyComponent={() => (
             <Text style={styles.emptyListText}>
@@ -79,7 +80,10 @@ export function Game() {
             </Text>
           )}
         />
-
+        <DuoMatch 
+        onClose={()=> setDiscordDuoSelected('')}
+        discord='luis'
+        visible={discordDuoSelected.length > 0}/>
 
       </SafeAreaView>
     </Background>
